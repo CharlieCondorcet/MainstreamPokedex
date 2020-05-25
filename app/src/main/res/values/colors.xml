@@ -4,4 +4,8 @@
     <color name="purple500">#6200EE</color>
     <color name="purple700">#3700B3</color>
     <color name="teal200">#03DAC5</color>
+
+    <color name="bg_end">#19BCD1</color>
+    <color name="bg_start">#029DE3</color>
+
 </resources>
