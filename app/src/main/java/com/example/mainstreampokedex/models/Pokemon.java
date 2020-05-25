@@ -2,8 +2,19 @@ package com.example.mainstreampokedex.models;
 
 public class Pokemon {
 
+    private int number;
     private String name;
     private String url;
+
+    //TODO: probar el split.
+    public int getNumber() {
+        String[] urlPartes = url.split("/");
+        return Integer.parseInt(urlPartes[urlPartes.length-1]);
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
 
     public String getName() {
         return name;
@@ -20,4 +31,5 @@ public class Pokemon {
     public void setUrl(String url) {
         this.url = url;
     }
+
 }

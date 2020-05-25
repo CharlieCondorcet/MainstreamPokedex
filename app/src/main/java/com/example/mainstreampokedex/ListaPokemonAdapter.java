@@ -3,21 +3,28 @@ package com.example.mainstreampokedex;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.mainstreampokedex.models.Pokemon;
 
 import java.util.ArrayList;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapter.ViewHolder> {
 
     private ArrayList<Pokemon> dataSet;
+    private Context context;
 
-    public ListaPokemonAdapter() {
+    public ListaPokemonAdapter(Context context) {
+        this.context = context;
         this.dataSet = new ArrayList<>();
     }
 
@@ -29,9 +36,15 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListaPokemonAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Pokemon p = dataSet.get(position);
         holder.nombreTextView.setText(p.getName());
+
+        Glide.with(context)
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +p.getNumber()+ ".png")
+                .transition(withCrossFade())
+                //.diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.fotoImageView);
     }
 
     @Override
