@@ -39,6 +39,11 @@ public class ListaPokemonAdapter extends RecyclerView.Adapter<ListaPokemonAdapte
         return dataSet.size();
     }
 
+    public void adicionarListaPokemon(ArrayList<Pokemon> listaPokemon) {
+        dataSet.addAll(listaPokemon);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView fotoImageView;

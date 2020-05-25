@@ -1,6 +1,8 @@
 package com.example.mainstreampokedex;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -23,10 +25,20 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG ="POKEDEX";
 
+    private RecyclerView recyclerView;
+    private ListaPokemonAdapter listaPokemonAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        listaPokemonAdapter = new ListaPokemonAdapter();
+        recyclerView.setAdapter(listaPokemonAdapter);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(layoutManager);
 
         retrofit = new Retrofit
                 .Builder()
@@ -49,10 +61,8 @@ public class MainActivity extends AppCompatActivity {
                     PokemonRespuesta pokemonRespuesta = response.body();
                     ArrayList<Pokemon> listaPokemon = pokemonRespuesta.getResults();
 
-                    for (int i=0; i<listaPokemon.size(); i++) {
-                        Pokemon p = listaPokemon.get(i);
-                        Log.i(TAG, "Pokemon : " + p.getName());
-                    }
+                    listaPokemonAdapter.adicionarListaPokemon(listaPokemon);
+
                 } else {
                     Log.i(TAG, "onResponse: " + response.errorBody());
                 }
